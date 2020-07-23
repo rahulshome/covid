@@ -127,7 +127,10 @@
                     {
                         img_handler = 1;
                     }
-                    img_handler = (img_handler%NUMIMG);
+                    if(img_handler != NUMIMG)
+                    {
+                        img_handler = (img_handler%NUMIMG);
+                    }
 
 
                     $('.image.active').removeClass('active');
