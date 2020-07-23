@@ -1,0 +1,134 @@
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+  <style id="compiled-css" type="text/css">
+        .container{
+            min-height: 600%;
+        }
+        .image{
+            max-height: 100%;
+            width: 100%;
+            max-width: 900px;
+            position : fixed; 
+            top: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            opacity: 0;
+            transition: all 1s;
+        }
+        .active {
+            opacity: 1;
+        }
+        body {
+            overflow-y: scroll;
+        }
+
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        body::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Hide scrollbar for IE, Edge and Firefox */
+        body {
+          -ms-overflow-style: none;  /* IE and Edge */
+          scrollbar-width: none;  /* Firefox */
+        }
+        
+        @media screen and (max-height: 600px) {
+          .image {
+              max-height: calc(0.6*600px);
+              max-width: calc(0.56*600px);
+              height: calc(0.6*600px);
+              width: calc(0.56*600px);
+          }
+        }
+        
+        .scrl{
+            position: fixed;
+            top: 100pt;
+            left: 10px;
+            color: red;
+            font-size: 32pt;
+        }
+        
+        .hid{
+            color: white;
+        }
+  </style>
+
+  <script id="insert"></script>
+</head>
+<body>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <img id="img1" class="image active" src="WB_Kolkata_1.jpg">
+                <img id="img2" class="image" src="WB_Kolkata_2.jpg">
+                <img id="img3" class="image" src="WB_Kolkata_3.jpg">
+                <img id="img4" class="image" src="WB_Kolkata_4.jpg">
+                <img id="img5" class="image" src="WB_Kolkata_5.jpg">
+                <img id="img6" class="image" src="WB_Kolkata_7.jpg">
+                <div id="bottommark"></div>                
+            </div>
+            <div class="col-md-3">
+                
+            </div>
+        </div>
+    </div>
+    <div class="scrl">
+        <center><b><span class="up">&#8657;</span><span id="pnum" style="font-size: 20pt">scroll</span><span class="down">&#8659;</span></b></center>
+    </div>
+
+
+    <script type="text/javascript">//<![CDATA[
+
+
+        $(document).ready(function(){
+
+            $(window).scroll(function(){
+                var offset1 = $(document).height();
+
+                var offset = $(window).scrollTop();
+
+                var NUMIMG = 6
+                var BREAKS = 2*NUMIMG + 2;
+                var lineH = offset1 - offset;
+                var lineHpart = offset1/BREAKS;
+
+
+                var img_handler = (BREAKS - Math.ceil(lineH/lineHpart))%NUMIMG+1
+
+                $('.image.active').removeClass('active');
+                $('#img'+img_handler).addClass('active');
+                
+                if(Math.ceil(lineH/lineHpart)==BREAKS)
+                {
+                    $('.up').addClass('hid');
+                    $('.down').removeClass('hid');
+                }
+                else if(Math.ceil(lineH/lineHpart)==3)
+                {
+                    $('.down').addClass('hid');
+                    $('.up').removeClass('hid');
+                }
+                else
+                {
+                    $('.down').removeClass('hid');
+                    $('.up').removeClass('hid');
+                }
+                
+                $('#pnum').html(img_handler+"/"+NUMIMG)
+
+                
+            });
+        });
+
+
+  //]]></script>
+
+</body></html>
