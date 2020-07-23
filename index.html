@@ -9,9 +9,10 @@
             min-height: 600%;
         }
         .image{
-            max-height: 100%;
+            padding-top: 20px;
+            max-height: 90vh;
             width: 100%;
-            max-width: 900px;
+            max-width: 86vh;
             position : fixed; 
             top: 0;
             left: 0;
@@ -86,44 +87,59 @@
 
 
     <script type="text/javascript">//<![CDATA[
+        var img_handler = 1;
+        var NUMIMG = 6;
+        previousScrollTop = 0;
+        scrollLock = false;
 
+        function release_lock()
+        {
+            scrollLock = false;
+        }
 
         $(document).ready(function(){
 
+            var $window = $(window)
+
+
             $(window).scroll(function(){
-                var offset1 = $(document).height();
 
-                var offset = $(window).scrollTop();
-
-                var NUMIMG = 6
-                var BREAKS = 2*NUMIMG + 2;
-                var lineH = offset1 - offset;
-                var lineHpart = offset1/BREAKS;
-
-
-                var img_handler = (BREAKS - Math.ceil(lineH/lineHpart))%NUMIMG+1
-
-                $('.image.active').removeClass('active');
-                $('#img'+img_handler).addClass('active');
-                
-                if(Math.ceil(lineH/lineHpart)==BREAKS)
+                if (scrollLock) 
                 {
-                    $('.up').addClass('hid');
-                    $('.down').removeClass('hid');
-                }
-                else if(Math.ceil(lineH/lineHpart)==3)
-                {
-                    $('.down').addClass('hid');
-                    $('.up').removeClass('hid');
+                  $(window).scrollTop(previousScrollTop);
+                  console.log("scroll locked");
                 }
                 else
                 {
-                    $('.down').removeClass('hid');
-                    $('.up').removeClass('hid');
-                }
-                
-                $('#pnum').html(img_handler+"/"+NUMIMG)
+                    var del = 1;
+                    if($(window).scrollTop() < previousScrollTop)
+                    {
+                        del = -1;
+                    }
 
+
+                    img_handler = img_handler + del;
+                    if(img_handler<=0)
+                    {
+                        img_handler = NUMIMG - img_handler;
+                    }
+                    if(img_handler==NUMIMG)
+                    {
+                        img_handler = 1;
+                    }
+                    img_handler = (img_handler%NUMIMG);
+
+
+                    $('.image.active').removeClass('active');
+                    $('#img'+img_handler).addClass('active');
+                    $('#pnum').html(img_handler+"/"+NUMIMG)
+
+                    scrollLock = true;
+                    console.log("Lock released... switching to "+img_handler);
+                    setTimeout(release_lock, 1000);
+                }
+
+                previousScrollTop = $(window).scrollTop();
                 
             });
         });
