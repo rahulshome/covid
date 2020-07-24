@@ -83,6 +83,9 @@
             var $window = $(window);
             $('.image.active').removeClass('active');
             $('#img1').addClass('active');
+            scrollLock = true;
+            // console.log("Lock released... switching to "+img_handler);
+            setTimeout(release_lock, 1000);
 
             $(window).scroll(function(){
 
