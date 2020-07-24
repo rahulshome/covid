@@ -55,7 +55,6 @@
 </head>
 <body>
     
-    
     <div class="container">
         <img id="img1" class="image active" src="WB_Kolkata_0.jpg">
         <img id="img2" class="image" src="WB_Kolkata_1.jpg">
@@ -82,6 +81,8 @@
         $(document).ready(function(){
 
             var $window = $(window);
+            $('.image.active').removeClass('active');
+            $('#img1').addClass('active');
 
             $(window).scroll(function(){
 
@@ -116,7 +117,7 @@
 
                     $('.image.active').removeClass('active');
                     $('#img'+img_handler).addClass('active');
-                    $('#pnum').html(img_handler+"/"+NUMIMG)
+                    
 
                     scrollLock = true;
                     // console.log("Lock released... switching to "+img_handler);
