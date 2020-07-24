@@ -9,7 +9,7 @@
             min-height: 600%;
         }
         .image{
-            padding-top: 20px;
+            padding-top: 50px;
             max-height: 90vh;
             width: 100%;
             max-width: 86vh;
@@ -41,6 +41,7 @@
         
         @media screen and (max-height: 600px) {
           .image {
+              padding-top: 20px;
               max-height: calc(0.6*600px);
               max-width: calc(0.56*600px);
               height: calc(0.6*600px);
@@ -85,34 +86,9 @@
             scrollLock = false;
         }
 
-        function padd()
-        {
-
-            var imh = $(".image.active").height();
-            // var winh = $(window).height();
-            // var winh = document.documentElement.clientHeight;
-            var winh = window.innerHeight;
-            var pad = 20;
-
-            if(winh-imh>50)
-            {
-                pad = (winh-imh)/2.0;
-            }
-
-            if(pad>200)
-            {
-                pad = 20;
-            }
-            // console.log(winh+" "+imh+" = "+pad);
-            $(".image").css({"padding": pad+"px"});
-        }
-
         $(document).ready(function(){
 
             var $window = $(window);
-
-            padd();
-
 
             $(window).scroll(function(){
 
@@ -158,8 +134,6 @@
 
                 
             });
-
-            $(window).resize(padd);
 
         });
 
