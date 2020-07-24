@@ -48,17 +48,6 @@
           }
         }
         
-        .scrl{
-            position: fixed;
-            top: 100pt;
-            left: 10px;
-            color: red;
-            font-size: 32pt;
-        }
-        
-        .hid{
-            color: white;
-        }
   </style>
 
   <script id="insert"></script>
@@ -83,9 +72,6 @@
             </div>
         </div>
     </div>
-    <!-- <div class="scrl">
-        <center><b><span class="up">&#8657;</span><span id="pnum" style="font-size: 20pt">scroll</span><span class="down">&#8659;</span></b></center>
-    </div> -->
 
 
     <script type="text/javascript">//<![CDATA[
@@ -99,9 +85,33 @@
             scrollLock = false;
         }
 
+        function padd()
+        {
+
+            var imh = $(".image.active").height();
+            // var winh = $(window).height();
+            // var winh = document.documentElement.clientHeight;
+            var winh = window.innerHeight;
+            var pad = 20;
+
+            if(winh-imh>50)
+            {
+                pad = (winh-imh)/2.0;
+            }
+
+            if(pad>100)
+            {
+                pad = 20;
+            }
+            // console.log(winh+" "+imh+" = "+pad);
+            $(".image").css({"padding": pad+"px"});
+        }
+
         $(document).ready(function(){
 
-            var $window = $(window)
+            var $window = $(window);
+
+            padd();
 
 
             $(window).scroll(function(){
@@ -109,7 +119,7 @@
                 if (scrollLock) 
                 {
                   $(window).scrollTop(previousScrollTop);
-                  console.log("scroll locked");
+                  // console.log("scroll locked");
                 }
                 else
                 {
@@ -140,7 +150,7 @@
                     $('#pnum').html(img_handler+"/"+NUMIMG)
 
                     scrollLock = true;
-                    console.log("Lock released... switching to "+img_handler);
+                    // console.log("Lock released... switching to "+img_handler);
                     setTimeout(release_lock, 1000);
                 }
 
@@ -148,6 +158,9 @@
 
                 
             });
+
+            $(window).resize(padd);
+
         });
 
 
